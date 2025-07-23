@@ -26,6 +26,7 @@ public class TestConfig {
 
     @PostConstruct
     public void init() {
+
         userRepository.deleteAll();
         postRepository.deleteAll();
 
