@@ -26,6 +26,14 @@ public class Post {
     public Post() {
     }
 
+    public Post(String id, Instant moment, String title, String body, Author author) {
+        this.id = id;
+        this.moment = moment;
+        this.title = title;
+        this.body = body;
+        this.author = author;
+    }
+
     public String getId() {
         return id;
     }
@@ -68,5 +76,17 @@ public class Post {
 
     public List<Comment> getComments() {
         return comments;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return Objects.equals(id, post.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
