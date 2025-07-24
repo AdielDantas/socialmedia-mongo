@@ -34,6 +34,14 @@ public class UserService {
         return new UserDTO(entity);
     }
 
+    public UserDTO update(String id, UserDTO dto) {
+        User entity = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("User não localizado: " + id));
+        copyDtoToEntity(entity, dto);
+        entity = repository.save(entity);
+        return new UserDTO(entity);
+    }
+
     private void copyDtoToEntity(User entity, UserDTO dto) {
         entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
