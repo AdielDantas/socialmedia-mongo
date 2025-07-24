@@ -42,6 +42,13 @@ public class UserService {
         return new UserDTO(entity);
     }
 
+    public void delete(String id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("User não localizado: " + id);
+        }
+        repository.deleteById(id);
+    }
+
     private void copyDtoToEntity(User entity, UserDTO dto) {
         entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
