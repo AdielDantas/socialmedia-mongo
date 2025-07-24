@@ -1,5 +1,6 @@
 package com.devsuperior.socialmedia_mongo.controller;
 
+import com.devsuperior.socialmedia_mongo.models.DTO.PostDTO;
 import com.devsuperior.socialmedia_mongo.models.DTO.UserDTO;
 import com.devsuperior.socialmedia_mongo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,11 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<PostDTO>> getUserPosts(@PathVariable String id) {
+        List<PostDTO> list = service.getUserPosts(id);
+        return ResponseEntity.ok().body(list);
     }
 }

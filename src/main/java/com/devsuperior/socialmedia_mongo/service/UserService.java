@@ -1,6 +1,8 @@
 package com.devsuperior.socialmedia_mongo.service;
 
+import com.devsuperior.socialmedia_mongo.models.DTO.PostDTO;
 import com.devsuperior.socialmedia_mongo.models.DTO.UserDTO;
+import com.devsuperior.socialmedia_mongo.models.entities.Post;
 import com.devsuperior.socialmedia_mongo.models.entities.User;
 import com.devsuperior.socialmedia_mongo.repositories.UserRepository;
 import com.devsuperior.socialmedia_mongo.service.exceptions.ResourceNotFoundException;
@@ -47,6 +49,12 @@ public class UserService {
             throw new ResourceNotFoundException("User não localizado: " + id);
         }
         repository.deleteById(id);
+    }
+
+    public List<PostDTO> getUserPosts(String id) {
+        User entity = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("User não localizado: " + id));
+        return entity.getPosts().stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
     }
 
     private void copyDtoToEntity(User entity, UserDTO dto) {
